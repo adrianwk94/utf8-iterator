@@ -1,0 +1,11 @@
+*.o
+*.d
+*.so
+*.ini
+*.sublime-project
+*.sublime-workspace
+
+
+/Build/
+/OBJ/
+/Project/

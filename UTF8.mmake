@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MinimalistMake>
+    <Project name="UTF8" LuaScript="GCC.lua" Horizontal="1">
+        <InitialNode ID="1" outID="8">
+            <Position x="50" y="83"/>
+        </InitialNode>
+        <CompilerNode ID="3" outID="4">
+            <Position x="1550" y="43"/>
+            <Option name="Wall"/>
+            <Option name="Werror"/>
+            <Option name="Wextra"/>
+            <Option name="Wno-unused-but-set-variable"/>
+            <Option name="Wpedantic"/>
+            <Option name="std=c99"/>
+        </CompilerNode>
+        <OutputFileNode ID="4" outID="0">
+            <Position x="1800" y="31"/>
+            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Debug" MainFile="main.c" PathFile="Main/" Execute="1"/>
+        </OutputFileNode>
+        <SmartFileNode ID="7" outID="2">
+            <Position x="950" y="77"/>
+            <Path name="Source/" Recursive="1"/>
+            <Filter name=".c"/>
+        </SmartFileNode>
+        <HeaderNode ID="8" outID="10">
+            <Position x="350" y="103"/>
+            <Header name="Source/"/>
+        </HeaderNode>
+        <FlagNode ID="10" outID="7">
+            <Position x="650" y="103"/>
+            <Flag name="-no-pie"/>
+        </FlagNode>
+        <CompilerNode ID="11" outID="5">
+            <Position x="1550" y="281"/>
+            <Option name="Wall"/>
+            <Option name="Werror"/>
+            <Option name="Wextra"/>
+            <Option name="Wno-unused-but-set-variable"/>
+            <Option name="Wpedantic"/>
+            <Option name="std=c99"/>
+            <Option name="O3"/>
+        </CompilerNode>
+        <DebugNode ID="2" extID="11" outID="3">
+            <Position x="1250" y="113"/>
+        </DebugNode>
+        <OutputFileNode ID="5" outID="0">
+            <Position x="1800" y="281"/>
+            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Release" MainFile="main.c" PathFile="Main/" Execute="1"/>
+        </OutputFileNode>
+    </Project>
+</MinimalistMake>
