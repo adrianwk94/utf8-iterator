@@ -73,11 +73,11 @@ int 	UTF8_Next(UTF8_Iterator* iter) {
 }
 
 
-size_t	UTF8_CharacterWidth(const char* character) {
+uint8_t	UTF8_CharacterWidth(const char* character) {
 
     if (!character) return 0;
 
-    size_t  t_width = 0;
+    uint8_t t_width = 0;
     char    t_char = character[0];
 
     if ((t_char & 0x80) == 0)
@@ -115,7 +115,7 @@ Unicode	UTF8_to_Unicode(const char* character) {
     if (!character) return 0;
 
     static Unicode codepoint = 0;
-    int n = 0;
+    uint8_t n = 0;
 
     //Check
     if ((character[0] & 0x80) == 0) n = 1;
@@ -132,7 +132,7 @@ Unicode	UTF8_to_Unicode(const char* character) {
 
     codepoint = ToUnicode[n] & character[0];
 
-    for (int i = 1; i < n; i++) {
+    for (uint8_t i = 1; i < n; i++) {
         codepoint = codepoint << 6;
         codepoint = codepoint | (character[i] & 0x3F);
     }
@@ -146,7 +146,7 @@ static const uint8_t ToUTF8[] = {0, 0,  0xC0,  0xE0, 0xF0,  0xF8,  0xFC};
 const char* Unicode_to_UTF8(Unicode codepoint) {
 
     static char str[10];
-    int n = 0;
+    uint8_t n = 0;
 
     //Check
     if (codepoint < 0x80) n = 1;
@@ -164,7 +164,7 @@ const char* Unicode_to_UTF8(Unicode codepoint) {
         return str;
     }
     
-    for (int i = n - 1; i > 0; i--) {
+    for (uint8_t i = n - 1; i > 0; i--) {
         str[i] = 0x80 | (codepoint & 0x3F);
         codepoint = codepoint >> 6;
     }

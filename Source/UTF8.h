@@ -44,7 +44,7 @@ typedef struct UTF8_Iterator {
 void 	UTF8_Init(UTF8_Iterator* iter, const char* ptr); //All values to 0 and set ptr.
 int 	UTF8_Next(UTF8_Iterator* iter); //returns 1 if there is a character in the next position. If there is not, return 0.
 
-size_t	UTF8_CharacterWidth(const char* character); //get the number of bytes a character occupies.
+uint8_t	UTF8_CharacterWidth(const char* character); //get the number of bytes a character occupies.
 size_t	UTF8_StringLength(const char* string); //calculates the number of multi-byte characters in a string.
 Unicode	UTF8_to_Unicode(const char* character); //UTF8 to Unicode.
 const char* Unicode_to_UTF8(Unicode codepoint); //Unicode to UTF8

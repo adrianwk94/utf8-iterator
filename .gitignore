@@ -1,6 +1,7 @@
 *.o
 *.d
 *.so
+*.exe
 *.ini
 *.sublime-project
 *.sublime-workspace
