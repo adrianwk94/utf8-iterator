@@ -61,14 +61,14 @@ mkdir Build
 gcc -ISource/ -Wall Main/main.c Source/UTF8.c -o Build/UTF8
 
 In Windows: Build\UTF8.exe
-In Linux: ./Build/UTF8
+In Mac and Linux: ./Build/UTF8
 ```
 
-Tested with GCC, MinGW Visual Studio 2017.
+Tested with GCC, MinGW, XCode and Visual Studio 2017.
 
 ## Issue Report
 
-You can report a problem in English or Spanish.
+You can report a problem in English or Spanish. Link to Bitbucket: [UTF8 Iterator](https://bitbucket.org/adricoin2010/utf8-iterator)
 
 ## License
 
@@ -76,7 +76,10 @@ You can report a problem in English or Spanish.
 
 ## Screenshots
 
-###### UFT8 Iterator in Ubuntu: 
+###### UFT8 Iterator in Mac and Ubuntu: 
+
+![Terminal in Mac](https://image.ibb.co/kAJKpp/Terminal_en_Mac.png)
+
 ![Terminal in Ubuntu](https://image.ibb.co/fqnMV8/Terminal_en_Ubuntu.png)
 
 ###### UTF8 Iterator in Windows, UTF8 not support in CMD :( 
