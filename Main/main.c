@@ -12,13 +12,7 @@ int main() {
 
 	UTF8_Init(&ITER, String);
 
-	printf("\nString = %s\n", String);
-
-	#if __WIN32
-	printf("Length = %u\n\n", ITER.length);
-	#else
-	printf("Length = %lu\n\n", ITER.length);
-	#endif
+	printf("\nString = %s\n\n", String);
 
 	while (UTF8_Next(&ITER)) {
 
@@ -36,9 +30,11 @@ int main() {
 	}
 	
 	#if __WIN32
-	printf("\nCount Character = %u\n", ITER.count);
+	printf("\nLength = %u\n", ITER.length);
+	printf("Count Character = %u\n", ITER.count);
 	#else
-	printf("\nCount Character = %lu\n", ITER.count);
+	printf("\nLength = %lu\n", ITER.length);
+	printf("Count Character = %lu\n", ITER.count);
 	#endif
 
 	return 0;

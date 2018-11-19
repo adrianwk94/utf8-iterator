@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <stdio.h>
 
+//UTF8_Iterator
 void 	UTF8_Init(UTF8_Iterator* iter, const char* ptr) {
 
     if (iter) {
@@ -71,7 +72,7 @@ int 	UTF8_Next(UTF8_Iterator* iter) {
 	}
 
 }
-
+//////
 
 uint8_t	UTF8_CharacterWidth(const char* character) {
 
