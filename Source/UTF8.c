@@ -45,19 +45,18 @@ int 	UTF8_Next(UTF8_Iterator* iter) {
 	if (iter -> ptr == NULL) return 0;
 
 	const char* t_pointer;
-	size_t t_length;
 
 	if (iter -> next < iter -> length) {
 
 		iter -> position = iter -> next;
 
 		t_pointer = iter -> ptr + iter -> next; //Set Current Pointer
-		t_length = UTF8_CharacterWidth(t_pointer);
+		iter -> size = UTF8_CharacterSize(t_pointer);
 
-		if (t_length == 0) return 0;
+		if (iter -> size == 0) return 0;
 
-        iter -> next = iter -> next + t_length;
-		iter -> codepoint = UTF8_to_Unicode(t_pointer);
+        iter -> next = iter -> next + iter -> size;
+		iter -> codepoint = UTF8_Converter(t_pointer, iter -> size);
 
 		if (iter -> codepoint == 0) return 0;
 
@@ -72,36 +71,17 @@ int 	UTF8_Next(UTF8_Iterator* iter) {
 	}
 
 }
+
 //////
+size_t  UTF8_StringLength(const char* string) {
 
-uint8_t	UTF8_CharacterWidth(const char* character) {
+    if (string == NULL) return 0;
 
-    if (!character) return 0;
-
-    uint8_t t_width = 0;
-    char    t_char = character[0];
-
-    if ((t_char & 0x80) == 0)
-        return 1;
-
-    while (t_char & 0x80) {
-        t_char = t_char << 1;
-        t_width++;
-    }
-
-    return t_width;
-
-}
-
-size_t	UTF8_StringLength(const char* string) {
-
-	if (string == NULL) return 0;
-
-	const char* t_pointer = string;
+    const char* t_pointer = string;
     size_t      t_length = 0;
 
     while (*t_pointer) {
-        t_pointer = t_pointer + UTF8_CharacterWidth(t_pointer);
+        t_pointer = t_pointer + UTF8_CharacterSize(t_pointer);
         t_length++;
     }
 
@@ -109,31 +89,62 @@ size_t	UTF8_StringLength(const char* string) {
 
 }
 
-static const uint8_t ToUnicode[] = {0, 0, 0x1F, 0xF, 0x7, 0x3, 0x1};
-
-Unicode	UTF8_to_Unicode(const char* character) {
+Unicode UTF8_to_Unicode(const char* character) {
 
     if (!character) return 0;
 
+    uint8_t N = UTF8_CharacterSize(character);
+
+    if (N == 0) return 0;
+    
+    return UTF8_Converter(character, N);
+
+}
+
+const char* Unicode_to_UTF8(Unicode codepoint) {
+
+    uint8_t N = Unicode_CharacterSize(codepoint);
+
+    if (N == 0) return 0;
+
+    return Unicode_Converter(codepoint, N);
+
+}
+
+//////
+
+uint8_t UTF8_CharacterSize(const char* character) {
+
+    if (!character) return 0;
+
+    if (character[0] == 0) return 0;
+
+    if ((character[0] & 0x80) == 0) return 1;
+    else if ((character[0] & 0xE0) == 0xC0) return 2;
+    else if ((character[0] & 0xF0) == 0xE0) return 3;
+    else if ((character[0] & 0xF8) == 0xF0) return 4;
+    else if ((character[0] & 0xFC) == 0xF8) return 5;
+    else if ((character[0] & 0xFE) == 0xFC) return 6;
+
+    return 0;
+
+}
+
+static const uint8_t ToUnicode[] = {0, 0, 0x1F, 0xF, 0x7, 0x3, 0x1};
+
+Unicode UTF8_Converter(const char* character, uint8_t N) {
+
+    if (!character || N == 0) return 0;
+
     static Unicode codepoint = 0;
-    uint8_t n = 0;
 
-    //Check
-    if ((character[0] & 0x80) == 0) n = 1;
-    else if ((character[0] & 0xE0) == 0xC0) n = 2;
-    else if ((character[0] & 0xF0) == 0xE0) n = 3;
-    else if ((character[0] & 0xF8) == 0xF0) n = 4;
-    else if ((character[0] & 0xFC) == 0xF8) n = 5;
-    else if ((character[0] & 0xFE) == 0xFC) n = 6;
-
-    //Conversion
-    if (n == 1) {
+    if (N == 1) {
         return character[0];
     }
 
-    codepoint = ToUnicode[n] & character[0];
+    codepoint = ToUnicode[N] & character[0];
 
-    for (uint8_t i = 1; i < n; i++) {
+    for (uint8_t i = 1; i < N; i++) {
         codepoint = codepoint << 6;
         codepoint = codepoint | (character[i] & 0x3F);
     }
@@ -142,35 +153,44 @@ Unicode	UTF8_to_Unicode(const char* character) {
 
 }
 
+//////
+
+uint8_t Unicode_CharacterSize(Unicode codepoint) {
+
+    if (codepoint == 0) return 0;
+
+    if (codepoint < 0x80) return 1;
+    else if (codepoint < 0x800) return 2;
+    else if (codepoint < 0x10000) return 3;
+    else if (codepoint < 0x200000) return 4;
+    else if (codepoint < 0x4000000) return 5;
+    else if (codepoint <= 0x7FFFFFFF) return 6;
+
+    return 0;
+
+}
+
 static const uint8_t ToUTF8[] = {0, 0,  0xC0,  0xE0, 0xF0,  0xF8,  0xFC};
 
-const char* Unicode_to_UTF8(Unicode codepoint) {
+const char* Unicode_Converter(Unicode codepoint, uint8_t N) {
+
+    if (codepoint == 0 || N == 0) return 0;
 
     static char str[10];
-    uint8_t n = 0;
-
-    //Check
-    if (codepoint < 0x80) n = 1;
-    else if (codepoint < 0x800) n = 2;
-    else if (codepoint < 0x10000) n = 3;
-    else if (codepoint < 0x200000) n = 4;
-    else if (codepoint < 0x4000000) n = 5;
-    else if (codepoint <= 0x7FFFFFFF) n = 6;
     
-    str[n] = '\0';
+    str[N] = '\0';
 
-    //Conversion
-    if (n == 1) {
+    if (N == 1) {
         str[0] = codepoint;
         return str;
     }
     
-    for (uint8_t i = n - 1; i > 0; i--) {
+    for (uint8_t i = N - 1; i > 0; i--) {
         str[i] = 0x80 | (codepoint & 0x3F);
         codepoint = codepoint >> 6;
     }
 
-    str[0] = ToUTF8[n] | codepoint;
+    str[0] = ToUTF8[N] | codepoint;
     
     return str;
 

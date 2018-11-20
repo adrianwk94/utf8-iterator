@@ -34,6 +34,7 @@ int main() {
 
 * `ptr` is the original pointer to the character string, it is assigned by `UTF8_Init()`.
 * `codepoint` is the current character in Unicode.
+* `size` is the size in bytes of the current character.
 * `position` is the current position in the string.
 * `next` is the next position in the string.
 * `count` is the number of characters currently.
@@ -47,10 +48,16 @@ int main() {
 
 These functions do not require the use of the Iterator:
 
-* `UTF8_CharacterWidth(character)` returns the size of the character.
 * `UTF8_StringLength(string)` returns the number of characters in the string. It is different from `strlen()`
-* `UTF8_to_Unicode(character)` returns the codepoint in Unicode.
-* `Unicode_to_UTF8(Unicode)` returns the pointer to a string with the character in UTF8.
+* `UTF8_to_Unicode(char*)` returns the codepoint in Unicode.
+* `Unicode_to_UTF8(codepoint)` returns the pointer to a string with the character in UTF8.
+
+For internal use or advanced users:
+
+* `UTF8_CharacterSize(char*)` returns the size in bytes of the provided character.
+* `Unicode_CharacterSize(codepoint)` returns the size in bytes that a Unicode character occupies in a UTF8 string.
+* `UTF8_Converter(char*, size)` this function converts a UTF8 character to Unicode. This function does not perform the size check. Requires the user to provide the character size.
+* `Unicode_Converter(codepoint, size)` this function converts a Unicode character to UTF8. Like `UTF8_Converter(...)`, it requires you to provide the size of the character.
 
 ## Compile Example
 
