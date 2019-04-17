@@ -23,7 +23,7 @@ int main() {
     
     while (UTF8_Next(&ITER)) {
         
-        printf("Character: %s \t Codepoint: %u\n", Unicode_to_UTF8(ITER.codepoint), ITER.codepoint);
+        printf("Character: %s \t Codepoint: %u\n", UTF8_GetCharacter(&ITER), ITER.codepoint);
         
     }
     
@@ -40,9 +40,13 @@ int main() {
 * `count` is the number of characters currently.
 * `length` is the length of the string with `strlen()`
 
-`UTF8_Init(pointerIterator, string)` is used to start or restart the iterator. The first argument is a pointer to the Iterator, and the second argument is the character string.
+`UTF8_Init(Iterator, string)` is used to start or restart the iterator. The first argument is a pointer to the Iterator, and the second argument is the character string.
 
-`UTF8_Next(pointerIterator)` checks the string, the size of the next character and converts the character to Unicode. `Return: 1 -> Continue, 0 -> End or Error.`
+`UTF8_InitEx(Iterator, string, length)` works the same as `UTF8_Init`, but allows the user to set a maximum length for the string. 
+
+`UTF8_Next(Iterator)` checks the string, the size of the next character and converts the character to Unicode. `Return: 1 -> Continue, 0 -> End or Error.`
+
+`UTF8_GetCharacter(Iterator)` allows to obtain the character in UTF8 `(char*)` in the Iterator position.
 
 ### Other functions
 
@@ -75,7 +79,11 @@ Tested with GCC, MinGW, XCode and Visual Studio 2017.
 
 ## Issue Report
 
-You can report a problem in English or Spanish. Link to Bitbucket: [UTF8 Iterator](https://bitbucket.org/adricoin2010/utf8-iterator)
+You can report a problem in English or Spanish. 
+
+> Link to Bitbucket: <https://bitbucket.org/adricoin2010/utf8-iterator>
+>
+> Link to GitHub: <https://github.com/adricoin2010/UTF8-Iterator>
 
 ## License
 
@@ -83,7 +91,7 @@ You can report a problem in English or Spanish. Link to Bitbucket: [UTF8 Iterato
 
 ## Screenshots
 
-###### UFT8 Iterator in Mac and Ubuntu: 
+###### UFT8 Iterator in Mac and Ubuntu:
 
 ![Terminal in Mac](https://image.ibb.co/kAJKpp/Terminal_en_Mac.png)
 
