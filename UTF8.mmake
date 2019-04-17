@@ -23,9 +23,8 @@
             <Filter name=".c"/>
         </SmartFileNode>
         <HeaderNode ID="8" outID="7">
-            <Position x="350" y="91"/>
+            <Position x="350" y="103"/>
             <Header name="Source/"/>
-            <Header name="Main/"/>
         </HeaderNode>
         <CompilerNode ID="11" outID="2">
             <Position x="1350" y="43"/>

@@ -22,39 +22,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef UTF8_H
-#define UTF8_H
+#ifndef UTF8_ITERATOR_H
+#define UTF8_ITERATOR_H
 
 #include <stdint.h>
-#include <string.h>
 
 typedef uint32_t Unicode;
 
 typedef struct UTF8_Iterator {
 
 	const char* ptr;
-	Unicode	codepoint;
+	Unicode		codepoint;
 
-	uint8_t size; 		//character size in bytes
-	size_t position; 	//current character position
-	size_t next; 		//next character position
-	size_t count; 		//number of counter characters currently
-	size_t length; 		//strlen()
+	uint8_t		size; 		//character size in bytes
+	uint32_t 	position; 	//current character position
+	uint32_t 	next; 		//next character position
+	uint32_t 	count; 		//number of counter characters currently
+	uint32_t 	length;		//strlen()
 
 } UTF8_Iterator;
 
-void 	UTF8_Init(UTF8_Iterator* iter, const char* ptr); //All values to 0 and set ptr.
-int 	UTF8_Next(UTF8_Iterator* iter); //returns 1 if there is a character in the next position. If there is not, return 0.
+void 		UTF8_Init(UTF8_Iterator* iter, const char* ptr); //All values to 0 and set ptr.
+void		UTF8_InitEx(UTF8_Iterator* iter, const char* ptr, uint32_t length); //allows you to set a custom length.
 
-size_t	UTF8_StringLength(const char* string); //calculates the number of multi-byte characters in a string. It is not the same as strlen()
-Unicode	UTF8_to_Unicode(const char* character); //UTF8 to Unicode.
+uint8_t		UTF8_Next(UTF8_Iterator* iter); //returns 1 if there is a character in the next position. If there is not, return 0.
+
+const char* UTF8_GetCharacter(UTF8_Iterator* iter); //return current character in UFT8 - no same that iter.codepoint (not codepoint/unicode)
+
+//Utilities
+uint32_t 	UTF8_StringLength(const char* string); //calculates the number of multi-byte characters in a string. It is not the same as strlen()
+Unicode		UTF8_to_Unicode(const char* character); //UTF8 to Unicode.
 const char* Unicode_to_UTF8(Unicode codepoint); //Unicode to UTF8
 
 //Internal use / Advanced use.
-uint8_t	UTF8_CharacterSize(const char* character); //calculate the number of bytes a UTF8 character occupies in a string.
-uint8_t Unicode_CharacterSize(Unicode codepoint); //calculates the number of bytes occupied by a Unicode character in UTF8.
+uint8_t		UTF8_CharacterSize(const char* character); //calculate the number of bytes a UTF8 character occupies in a string.
+uint8_t		Unicode_CharacterSize(Unicode codepoint); //calculates the number of bytes occupied by a Unicode character in UTF8.
 
-Unicode UTF8_Converter(const char* character, uint8_t N);
-const char* Unicode_Converter(Unicode codepoint, uint8_t N);
+Unicode 	UTF8_Converter(const char* character, uint8_t size);
+const char* Unicode_Converter(Unicode codepoint, uint8_t size);
 
 #endif
