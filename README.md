@@ -63,6 +63,14 @@ For internal use or advanced users:
 * `UTF8_Converter(char*, size)` this function converts a UTF8 character to Unicode. This function does not perform the size check. Requires the user to provide the character size.
 * `Unicode_Converter(codepoint, size)` this function converts a Unicode character to UTF8. Like `UTF8_Converter(...)`, it requires you to provide the size of the character.
 
+# Installation
+
+You can install the library using [Clib](https://github.com/clibs/clib).
+
+```
+clib install adricoin2010/utf8-iterator
+```
+
 ## Compile Example
 
 To compile in GCC, use the following commands within the library folder:

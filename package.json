@@ -1,6 +1,6 @@
-	{
+{
 	"name": "utf8-iterator",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"repo": "adricoin2010/UTF8-Iterator",
 	"description": "Minimalist UTF8 Iterator for C and C++",
 	"author": "Adrian Guerrero Vera",
