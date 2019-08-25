@@ -46,7 +46,7 @@ int main() {
 
 **`utf8_next(Iterator)`** checks the string, the size of the **next** character and converts the character to Unicode. `Return: 1 -> Continue, 0 -> End or Error.`
 
-**`utf8_previous(Iterator)`**check the string, the size of the **previous** character and converts the character to Unicode. `Return: 1 -> Continue, 0 -> End or Error.`
+**`utf8_previous(Iterator)`** check the string, the size of the **previous** character and converts the character to Unicode. `Return: 1 -> Continue, 0 -> End or Error.`
 
 **`utf8_getchar(Iterator)`** allows to obtain the character in UTF8 `(char*)` in the Iterator position.
 
