@@ -15,11 +15,11 @@
         </CompilerNode>
         <OutputFileNode ID="4" outID="0">
             <Position x="2050" y="31"/>
-            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Debug" MainFile="main.c" PathFile="Main/" Execute="1"/>
+            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Debug" MainFile="main.c" PathFile="Main/" Execute="true"/>
         </OutputFileNode>
         <SmartFileNode ID="7" outID="9">
             <Position x="650" y="77"/>
-            <Path name="Source/" Recursive="1"/>
+            <Path name="Source/" Recursive="true"/>
             <Filter name=".c"/>
         </SmartFileNode>
         <HeaderNode ID="8" outID="7">
@@ -40,7 +40,7 @@
         </DebugNode>
         <OutputFileNode ID="5" outID="0">
             <Position x="2050" y="331"/>
-            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Release" MainFile="main.c" PathFile="Main/" Execute="1"/>
+            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Release" MainFile="main.c" PathFile="Main/" Execute="true"/>
         </OutputFileNode>
         <SystemNode ID="9" extID="3" outID="11">
             <Position x="1150" y="117"/>

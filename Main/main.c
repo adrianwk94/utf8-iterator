@@ -5,18 +5,18 @@
 
 int main() {
 
-	const char* String = "Hello World, こんにちは世界, привет мир.";
+	const char* String = "Hello World, Γεια σου κόσμο, こんにちは世界, привет мир.";
 	const char* Character;
 
-	UTF8_Iterator ITER;
+	utf8_iterator ITER;
 
-	UTF8_Init(&ITER, String);
+	utf8_init(&ITER, String);
 
-	printf("\nString = %s\n\n", ITER.ptr);	
+	printf("\nString = %s\n\n", ITER.ptr);
 
-	while (UTF8_Next(&ITER)) {
+	while (utf8_next(&ITER)) {
 
-		Character = UTF8_GetCharacter(&ITER);
+		Character = utf8_getchar(&ITER);
 
 		printf("Character =  %s\t Codepoint =  %u\t\t BYTES:  ", Character, ITER.codepoint);
 
@@ -26,7 +26,6 @@ int main() {
 		}
 
 		printf("\n");
-
 	}
 
 	printf("\n");
@@ -34,5 +33,4 @@ int main() {
 	printf("Length in BYTES = %u\n", ITER.length);
 
 	return 0;
-
 }

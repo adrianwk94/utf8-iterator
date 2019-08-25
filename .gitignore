@@ -3,10 +3,12 @@
 *.so
 *.exe
 *.ini
+
+*.code-workspace
 *.sublime-project
 *.sublime-workspace
 
-
+.vscode
 /Build/
 /OBJ/
 /Project/
