@@ -3,12 +3,13 @@
 *.so
 *.exe
 *.ini
+*.tags*
 
 *.code-workspace
 *.sublime-project
 *.sublime-workspace
 
 .vscode
-/Build/
-/OBJ/
-/Project/
+
+build/
+notes/

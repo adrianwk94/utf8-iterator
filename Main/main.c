@@ -1,4 +1,4 @@
-#include "UTF8.h"
+#include "utf-8.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -8,7 +8,7 @@ int main() {
 	const char* String = "Hello World, Γεια σου κόσμο, こんにちは世界, привет мир.";
 	const char* Character;
 
-	utf8_iterator ITER;
+	utf8_iter ITER;
 
 	utf8_init(&ITER, String);
 

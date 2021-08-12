@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MinimalistMake>
-    <Project name="UTF8" LuaScript="GCC.lua" Horizontal="1">
+    <Project name="utf 8" LuaScript="GCC.lua" Horizontal="1">
         <InitialNode ID="1" outID="8">
             <Position x="50" y="83"/>
         </InitialNode>
         <CompilerNode ID="3" outID="2">
-            <Position x="1350" y="293"/>
+            <Position x="1350" y="305"/>
             <Option name="Wall"/>
             <Option name="Werror"/>
             <Option name="Wextra"/>
-            <Option name="Wno-unused-const-variable"/>
             <Option name="Wpedantic"/>
             <Option name="std=c99"/>
         </CompilerNode>
         <OutputFileNode ID="4" outID="0">
             <Position x="2050" y="31"/>
-            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Debug" MainFile="main.c" PathFile="Main/" Execute="true"/>
+            <Data Type="Executable" Name="utf-8" Path="build/debug" MainFile="main.c" PathFile="main/" Execute="true"/>
         </OutputFileNode>
         <SmartFileNode ID="7" outID="9">
             <Position x="650" y="77"/>
-            <Path name="Source/" Recursive="true"/>
+            <Path name="source/" Recursive="true"/>
             <Filter name=".c"/>
         </SmartFileNode>
         <HeaderNode ID="8" outID="7">
             <Position x="350" y="103"/>
-            <Header name="Source/"/>
+            <Header name="source/"/>
         </HeaderNode>
         <CompilerNode ID="11" outID="2">
-            <Position x="1350" y="43"/>
+            <Position x="1350" y="55"/>
             <Option name="Wall"/>
             <Option name="Werror"/>
             <Option name="Wextra"/>
-            <Option name="Wno-unused-but-set-variable"/>
             <Option name="Wpedantic"/>
             <Option name="std=c99"/>
         </CompilerNode>
@@ -40,11 +38,11 @@
         </DebugNode>
         <OutputFileNode ID="5" outID="0">
             <Position x="2050" y="331"/>
-            <Data Type="Executable" Name="UTF8 Iterator" Path="Build/Release" MainFile="main.c" PathFile="Main/" Execute="true"/>
+            <Data Type="Executable" Name="utf-8" Path="build/release" MainFile="main.c" PathFile="main/" Execute="true"/>
         </OutputFileNode>
         <SystemNode ID="9" extID="3" outID="11">
             <Position x="1150" y="117"/>
-            <System OS="Mac"/>
+            <System OS="windows"/>
         </SystemNode>
         <CompilerNode ID="10" outID="5">
             <Position x="1750" y="403"/>

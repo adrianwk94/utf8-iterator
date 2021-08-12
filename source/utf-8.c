@@ -1,7 +1,7 @@
 /*
-Minimalist UTF8 Iterator. Version 0.1.3
+UTF-8 Iterator. Version 0.1.3
 
-Original code by Adrian Guerrero Vera (adri.coin2010@gmail.com)
+Original code by Adrian Guerrero Vera (adrianwk94@gmail.com)
 MIT License
 Copyright (c) 2016 Adrian Guerrero Vera
 
@@ -22,14 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "UTF8.h"
+#include "utf-8.h"
 
 #include <string.h>
-#include <assert.h>
 
-//utf8_iterator
+//utf8_iter
 
-void utf8_init(utf8_iterator* iter, const char* ptr) {
+void utf8_init(utf8_iter* iter, const char* ptr) {
 	if (iter) {
 		iter->ptr       = ptr;
 		iter->codepoint = 0;
@@ -40,7 +39,7 @@ void utf8_init(utf8_iterator* iter, const char* ptr) {
 	}
 }
 
-void utf8_initEx(utf8_iterator* iter, const char* ptr, uint32_t length) {
+void utf8_initEx(utf8_iter* iter, const char* ptr, uint32_t length) {
 	if (iter) {
 		iter->ptr       = ptr;
 		iter->codepoint = 0;
@@ -51,24 +50,24 @@ void utf8_initEx(utf8_iterator* iter, const char* ptr, uint32_t length) {
 	}
 }
 
-uint8_t	utf8_next(utf8_iterator* iter) {
+uint8_t	utf8_next(utf8_iter* iter) {
 
 	if (iter == NULL) return 0;
 	if (iter->ptr == NULL) return 0;
 
-	const char* t_pointer;
+	const char* pointer;
 
 	if (iter->next < iter->length) {
 
 		iter->position = iter->next;
 
-		t_pointer 	= iter->ptr + iter->next; //Set Current Pointer
-		iter->size 	= utf8_charsize(t_pointer);
+		pointer 	= iter->ptr + iter->next; //Set Current Pointer
+		iter->size 	= utf8_charsize(pointer);
 
 		if (iter->size == 0) return 0;
 
 		iter->next 		= iter->next + iter->size;
-		iter->codepoint = utf8_converter(t_pointer, iter->size);
+		iter->codepoint = utf8_converter(pointer, iter->size);
 
 		if (iter->codepoint == 0) return 0;
 
@@ -82,7 +81,7 @@ uint8_t	utf8_next(utf8_iterator* iter) {
 	}
 }
 
-uint8_t	utf8_previous(utf8_iterator* iter) {
+uint8_t	utf8_previous(utf8_iter* iter) {
 
 	if (iter == NULL) return 0;
 	if (iter->ptr == NULL) return 0;
@@ -94,7 +93,7 @@ uint8_t	utf8_previous(utf8_iterator* iter) {
 		}
 	}
 
-	const char* t_pointer;
+	const char* pointer;
 
 	if (iter->position > 0) {
 
@@ -112,9 +111,9 @@ uint8_t	utf8_previous(utf8_iterator* iter) {
 			}
 		}
 
-		t_pointer = iter->ptr + iter->position;
+		pointer = iter->ptr + iter->position;
 
-		iter->codepoint = utf8_converter(t_pointer, iter->size);
+		iter->codepoint = utf8_converter(pointer, iter->size);
 
 		if (iter->codepoint == 0) return 0;
 
@@ -128,15 +127,15 @@ uint8_t	utf8_previous(utf8_iterator* iter) {
 	}
 }
 
-const char* utf8_getchar(utf8_iterator* iter) {
+const char* utf8_getchar(utf8_iter* iter) {
 
 	static char str[10];
 
 	str[0] = '\0';
 
-	if (iter == NULL) return str;
-	if (iter->ptr == NULL) return str;
-	if (iter->size == 0) return str;
+	if (iter == NULL)		return str;
+	if (iter->ptr == NULL)	return str;
+	if (iter->size == 0)	return str;
 
 	if (iter->size == 1) {
 		str[0] = iter->ptr[ iter->position ];
@@ -144,10 +143,10 @@ const char* utf8_getchar(utf8_iterator* iter) {
 		return str;
 	}
 
-	const char* t_pointer = iter->ptr + iter->position;
+	const char* pointer = iter->ptr + iter->position;
 
 	for (uint8_t i = 0; i < iter->size; i++) {
-		str[i] = t_pointer[i];
+		str[i] = pointer[i];
 	}
 
 	str[iter->size] = '\0';
@@ -161,30 +160,30 @@ uint32_t utf8_strlen(const char* string) {
 
 	if (string == NULL) return 0;
 
-	uint32_t t_length 	= 0;
-	uint32_t t_pos 		= 0;
+	uint32_t length		= 0;
+	uint32_t position	= 0;
 
-	while (string[t_pos]) {
-		t_pos = t_pos + utf8_charsize(string + t_pos);
-		t_length++;
+	while (string[position]) {
+		position = position + utf8_charsize(string + position);
+		length++;
 	}
 
-	return t_length;
+	return length;
 }
 
 uint32_t utf8_strnlen(const char* string, uint32_t end) {
 
 	if (string == NULL) return 0;
 
-	uint32_t t_length 	= 0;
-	uint32_t t_pos 		= 0;
+	uint32_t length		= 0;
+	uint32_t position	= 0;
 
-	while (string[t_pos] && t_pos < end) {
-		t_pos = t_pos + utf8_charsize(string + t_pos);
-		t_length++;
+	while (string[position] && position < end) {
+		position = position + utf8_charsize(string + position);
+		length++;
 	}
 
-	return t_length;
+	return length;
 }
 
 uint32_t utf8_to_unicode(const char* character) {
@@ -192,11 +191,11 @@ uint32_t utf8_to_unicode(const char* character) {
 	if (character == NULL) return 0;
 	if (character[0] == 0) return 0;
 
-	uint8_t t_size = utf8_charsize(character);
+	uint8_t size = utf8_charsize(character);
 
-	if (t_size == 0) return 0;
+	if (size == 0) return 0;
 
-	return utf8_converter(character, t_size);
+	return utf8_converter(character, size);
 }
 
 const char* unicode_to_utf8(uint32_t codepoint) {
@@ -222,7 +221,7 @@ uint8_t utf8_charsize(const char* character) {
 	return 0;
 }
 
-static const uint8_t ToUnicode[] = {0, 0, 0x1F, 0xF, 0x7, 0x3, 0x1};
+static const uint8_t table_unicode[] = {0, 0, 0x1F, 0xF, 0x7, 0x3, 0x1};
 
 uint32_t utf8_converter(const char* character, uint8_t size) {
 
@@ -236,7 +235,7 @@ uint32_t utf8_converter(const char* character, uint8_t size) {
 		return character[0];
 	}
 
-	codepoint = ToUnicode[size] & character[0];
+	codepoint = table_unicode[size] & character[0];
 
 	for (uint8_t i = 1; i < size; i++) {
 		codepoint = codepoint << 6;
@@ -262,7 +261,7 @@ uint8_t unicode_charsize(uint32_t codepoint) {
 	return 0;
 }
 
-static const uint8_t ToUTF8[] = {0, 0,  0xC0,  0xE0, 0xF0,  0xF8,  0xFC};
+static const uint8_t table_utf8[] = {0, 0,  0xC0,  0xE0, 0xF0,  0xF8,  0xFC};
 
 const char* unicode_converter(uint32_t codepoint, uint8_t size) {
 
@@ -282,7 +281,7 @@ const char* unicode_converter(uint32_t codepoint, uint8_t size) {
 		codepoint = codepoint >> 6;
 	}
 
-	str[0] = ToUTF8[size] | codepoint;
+	str[0] = table_utf8[size] | codepoint;
 
 	return str;
 }
