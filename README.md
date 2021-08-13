@@ -88,7 +88,7 @@ You can report a problem in English or Spanish.
 
 ## License
 
-**UTF8 Iterator** is distributed with an MIT License. You can see LICENSE.txt for more info.
+**UTF8 Iterator** is distributed with an MIT License. You can see LICENSE for more info.
 
 ## Screenshots
 
